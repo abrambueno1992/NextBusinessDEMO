@@ -4,9 +4,18 @@ export default class extends React.Component {
   constructor() {
     super()
     this.state = {
-      agencies: []
+      agencies: [
+
+      ]
     }
   }
+
+  async componentDidMount() {
+    let response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const agencies = await response.json()
+    this.setState({agencies})
+  }
+
 
   render() {
     return <div id="agencies">
@@ -15,8 +24,8 @@ export default class extends React.Component {
         way of ranking these agencies.</p>
       {(this.state.agencies && this.state.agencies.length > 0) ?
         <ul>
-          {this.state.agencies.map(agency => <li><h3>{agency.name}</h3></li>)}
-        </ul> : <p>Have nothing</p>}
+          {this.state.agencies.map(agency => <li><h3>{agency.title}</h3></li>)}
+        </ul> : <p><strong>Have nothing</strong></p>}
       <hr/>
     </div>
   }
